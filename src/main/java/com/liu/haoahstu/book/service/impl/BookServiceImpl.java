@@ -52,17 +52,18 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Result saveOrUpdateBook(BookForm form) {
-        if(Tools.isEmpty(form.getBookId())) {
-            TBook tBook = new TBook();
-            tBook.setBookName(form.getBookName());
-            tBook.setCreateDate(new Date());
-            return tBookMapper.insert(tBook) >0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_BLANK);
+        TBookKey key = new TBookKey();
+        key.setBookId(form.getBookId());
+        TBook book = tBookMapper.selectByPrimaryKey(key);
+        if(Tools.isEmpty(book)) {
+            book = new TBook();
+            book.setBookId(form.getBookId());
+            book.setBookName(form.getBookName());
+            book.setCreateDate(new Date());
+            return tBookMapper.insert(book) >0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_BLANK);
         }
-        TBookKey tBookKey = new TBookKey();
-        tBookKey.setBookId(form.getBookId());
-        TBook tBook = tBookMapper.selectByPrimaryKey(tBookKey);
-        tBook.setBookName(form.getBookName());
-        tBook.setCreateDate(new Date());
-        return tBookMapper.updateByPrimaryKey(tBook)>0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_INVALID);
+        book.setBookName(form.getBookName());
+        book.setCreateDate(new Date());
+        return tBookMapper.updateByPrimaryKey(book)>0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_INVALID);
     }
 }

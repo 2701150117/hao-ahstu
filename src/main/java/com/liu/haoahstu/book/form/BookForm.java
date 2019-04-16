@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class BookForm extends PageForm {
 
-    private Integer bookId;
+    private String bookId;
 
     private String bookName;
 }
