@@ -9,6 +9,7 @@ import com.liu.haoahstu.auto.mapper.TBookMapper;
 import com.liu.haoahstu.book.form.BookForm;
 import com.liu.haoahstu.book.service.BookService;
 import com.liu.haoahstu.constants.ResultCode;
+import com.liu.haoahstu.user.form.UserForm;
 import com.liu.haoahstu.util.Result;
 import com.liu.haoahstu.util.Tools;
 import org.springframework.stereotype.Service;
@@ -59,11 +60,14 @@ public class BookServiceImpl implements BookService {
             book = new TBook();
             book.setBookId(form.getBookId());
             book.setBookName(form.getBookName());
+            book.setStatus(1);
             book.setCreateDate(new Date());
             return tBookMapper.insert(book) >0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_BLANK);
         }
         book.setBookName(form.getBookName());
+        book.setStatus(form.getStatus());
         book.setCreateDate(new Date());
         return tBookMapper.updateByPrimaryKey(book)>0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_INVALID);
     }
+
 }

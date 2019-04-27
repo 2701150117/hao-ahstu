@@ -11,4 +11,6 @@ public class BookForm extends PageForm {
     private String bookId;
 
     private String bookName;
+
+    private Integer status;
 }
