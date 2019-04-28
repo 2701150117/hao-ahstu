@@ -5,4 +5,6 @@ import com.liu.haoahstu.util.Result;
 
 public interface BorrowService {
     Result borrowBookByUserId(BorrowForm form);
+
+    Result getBorrow(BorrowForm form);
 }

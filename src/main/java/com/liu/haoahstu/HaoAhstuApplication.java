@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Properties;
 
 @SpringBootApplication(scanBasePackages = "com.liu.*")
-@MapperScan({"com.liu.haoahstu.mapper","com.liu.haoahstu.auto.mapper"})
+@MapperScan({"com.liu.haoahstu.*.mapper","com.liu.haoahstu.auto.mapper"})
 public class HaoAhstuApplication {
 
     public static void main(String[] args) {

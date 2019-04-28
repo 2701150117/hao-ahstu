@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.haoahstu.borrow.mapper.BorrowMapper">
+    <select id="query" resultType="com.liu.haoahstu.borrow.entity.BorrowEntity"
+            parameterType="com.liu.haoahstu.borrow.form.BorrowForm">
+        select bo.book_id as bookId,
+        u.user_id as userId,
+        bo.book_name as bookName,
+        u.user_name as userName,
+        br.create_date as borrowStart,
+        br.end_date as endDate
+        from t_borrow br
+        join t_book bo on br.book_id = bo.book_id
+        join t_user u on br.user_id = u.user_id
+        <where>
+            <if test="bookName != null and bookName != ''">
+                and instr(bo.book_name, #{bookName})
+            </if>
+            <if test="userName !=null and userName !=''">
+                and instr(u.user_name, #{userName})
+            </if>
+        </where>
+    </select>
+</mapper>
