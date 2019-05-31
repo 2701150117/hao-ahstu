@@ -7,6 +7,7 @@ import com.liu.haoahstu.auto.dao.TBookExample;
 import com.liu.haoahstu.auto.dao.TBookKey;
 import com.liu.haoahstu.auto.mapper.TBookMapper;
 import com.liu.haoahstu.book.form.BookForm;
+import com.liu.haoahstu.book.mapper.BookMapper;
 import com.liu.haoahstu.book.service.BookService;
 import com.liu.haoahstu.constants.ResultCode;
 import com.liu.haoahstu.user.form.UserForm;
@@ -24,17 +25,14 @@ public class BookServiceImpl implements BookService {
     @Resource
     private TBookMapper tBookMapper;
 
+    @Resource
+    private BookMapper bookMapper;
+
     @Override
     public Result<PageInfo<TBook>> getBook(BookForm form) {
 
-        TBookExample example = new TBookExample();
-        TBookExample.Criteria criteria = example.createCriteria();
-        if (Tools.isNotEmpty(form.getBookName())) {
-            criteria.andBookNameLike(form.getBookName());
-        }
-        //分页
         PageHelper.startPage(form.getCurrentPage(), form.getPageSize());
-        List<TBook> tBooks = tBookMapper.selectByExample(example);
+        List<TBook> tBooks = bookMapper.getBook(form);
         PageInfo<TBook> pageInfo = new PageInfo<>(tBooks);
         Result<PageInfo<TBook>> result = new Result<>();
         result.setPage(pageInfo);
@@ -66,7 +64,6 @@ public class BookServiceImpl implements BookService {
         }
         book.setBookName(form.getBookName());
         book.setStatus(form.getStatus());
-        book.setCreateDate(new Date());
         return tBookMapper.updateByPrimaryKey(book)>0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_INVALID);
     }
 

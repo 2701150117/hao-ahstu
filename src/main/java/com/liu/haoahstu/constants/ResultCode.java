@@ -23,6 +23,7 @@ public enum ResultCode {
 
     /* 员工错误：30001-39999*/
     EMPLOY_NOT_LOGGED_IN(30001, "员工未登录"),
+    EMPLOY_NOT_DELETE(30001, "默认账号不允许删除"),
     EMPLOY_LOGIN_ERROR(30002, "账号不存在或密码错误"),
     EMPLOY_ACCOUNT_FORBIDDEN(30003, "账号已被禁用"),
     EMPLOY_NOT_EXIST(30004, "员工不存在"),

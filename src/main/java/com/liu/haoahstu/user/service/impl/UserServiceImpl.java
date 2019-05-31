@@ -8,6 +8,7 @@ import com.liu.haoahstu.auto.dao.TUserKey;
 import com.liu.haoahstu.auto.mapper.TUserMapper;
 import com.liu.haoahstu.constants.ResultCode;
 import com.liu.haoahstu.user.form.UserForm;
+import com.liu.haoahstu.user.mapper.UserMapper;
 import com.liu.haoahstu.user.service.UserService;
 import com.liu.haoahstu.util.Result;
 import com.liu.haoahstu.util.Tools;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private TUserMapper tUserMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public Result saveOrUpdate(UserForm form) {
@@ -45,13 +49,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result<PageInfo<TUser>> search(UserForm form) {
-        TUserExample example = new TUserExample();
-        TUserExample.Criteria criteria = example.createCriteria();
-        if (Tools.isNotEmpty(form.getUserName())) {
-            criteria.andUserNameLike(form.getUserName());
-        }
         PageHelper.startPage(form.getCurrentPage(), form.getPageSize());
-        List<TUser> users = tUserMapper.selectByExample(example);
+        List<TUser> users = userMapper.search(form);
         PageInfo<TUser> pageInfo = new PageInfo<>(users);
         Result<PageInfo<TUser>> result = new Result<>();
         result.setPage(pageInfo);

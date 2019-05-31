@@ -48,9 +48,11 @@
         <table tableName="t_user" modelType="hierarchical">
             <property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>
+
         <table tableName="t_login" modelType="hierarchical">
             <property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>-->
+
         <table tableName="t_book" modelType="hierarchical">
             <property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>
