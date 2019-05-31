@@ -7,4 +7,6 @@ public interface BorrowService {
     Result borrowBookByUserId(BorrowForm form);
 
     Result getBorrow(BorrowForm form);
+
+    Result delete(BorrowForm form);
 }

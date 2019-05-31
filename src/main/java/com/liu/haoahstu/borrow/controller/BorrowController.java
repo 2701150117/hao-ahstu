@@ -4,16 +4,13 @@ import com.liu.haoahstu.borrow.form.BorrowForm;
 import com.liu.haoahstu.borrow.service.BorrowService;
 import com.liu.haoahstu.user.form.UserForm;
 import com.liu.haoahstu.util.Result;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/hao/borrow")
-public class BorrowController {
+public class        BorrowController {
 
     @Resource
     private BorrowService borrowService;
@@ -26,5 +23,10 @@ public class BorrowController {
     @GetMapping("/getBorrow")
     public Result getBorrow(BorrowForm form) {
         return borrowService.getBorrow(form);
+    }
+
+    @DeleteMapping("/delete")
+    public Result deleteBorrow(BorrowForm form) {
+        return borrowService.delete(form);
     }
 }

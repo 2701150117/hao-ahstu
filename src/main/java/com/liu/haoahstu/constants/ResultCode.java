@@ -20,6 +20,7 @@ public enum ResultCode {
     USER_HAS_EXISTED(20002, "用户已存在"),
     USER_SAVE_ERROR(20003, "用户注册失败"),
     USER_UPDATE_ERROR(20004, "用户更新失败"),
+    USER_BORROW_ERROR( 20005, "此人已经借用该书籍"),
 
     /* 员工错误：30001-39999*/
     EMPLOY_NOT_LOGGED_IN(30001, "员工未登录"),

@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Result delete(BookForm form) {
-        if(Tools.isNotEmpty(form.getBookId())) {
+        if (Tools.isNotEmpty(form.getBookId())) {
             TBookKey key = new TBookKey();
             key.setBookId(form.getBookId());
             tBookMapper.deleteByPrimaryKey(key);
@@ -54,17 +54,21 @@ public class BookServiceImpl implements BookService {
         TBookKey key = new TBookKey();
         key.setBookId(form.getBookId());
         TBook book = tBookMapper.selectByPrimaryKey(key);
-        if(Tools.isEmpty(book)) {
+        if (Tools.isEmpty(book)) {
             book = new TBook();
             book.setBookId(form.getBookId());
             book.setBookName(form.getBookName());
-            book.setStatus(1);
+            book.setStorage(form.getStorage());
             book.setCreateDate(new Date());
-            return tBookMapper.insert(book) >0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_BLANK);
+            return tBookMapper.insert(book) > 0 ? Result.success() : Result.failure(ResultCode.PARAM_IS_BLANK);
         }
-        book.setBookName(form.getBookName());
-        book.setStatus(form.getStatus());
-        return tBookMapper.updateByPrimaryKey(book)>0 ? Result.success(): Result.failure(ResultCode.PARAM_IS_INVALID);
+        if (Tools.isNotEmpty(form.getBookName())) {
+            book.setBookName(form.getBookName());
+        }
+        if (Tools.isNotEmpty(form.getStorage())) {
+            book.setStorage(form.getStorage());
+        }
+        return tBookMapper.updateByPrimaryKey(book) > 0 ? Result.success() : Result.failure(ResultCode.PARAM_IS_INVALID);
     }
 
 }
